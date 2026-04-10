@@ -122,3 +122,9 @@ GitHub Copilot support for MCP servers is available through:
 Once integrated **Ask Copilot** (in chat or inline):
    - "Use the add_numbers tool to add 15 and 20"
    - "Get the weather for London"
+
+## OpenAPI to MCP tool generation
+
+```bash
+openapi-mcp-generator --input docs/mch-all.yml --output src/server3 --transport=streamable-http --port=3000
+```
