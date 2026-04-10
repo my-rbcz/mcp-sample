@@ -19,16 +19,24 @@ function createMcpServer(): McpServer {
         {
             description: "Get current weather for a city",
             inputSchema: { city: z.string().describe("City name") },
+            outputSchema: {
+                city: z.string(),
+                temp: z.number(),
+                condition: z.string(),
+                unit: z.string(),
+            },
         },
         async ({ city }) => {
             console.error("executeTool called with name get_weather");
+            const structuredContent = { city, temp: 22, condition: "sunny", unit: "celsius" };
             return {
                 content: [
                     {
                         type: "text",
-                        text: JSON.stringify({ city, temp: 22, condition: "sunny", unit: "celsius" }),
+                        text: JSON.stringify(structuredContent),
                     },
                 ],
+                structuredContent,
             };
         }
     );
@@ -38,11 +46,16 @@ function createMcpServer(): McpServer {
         {
             description: "Add two numbers together",
             inputSchema: { a: z.number(), b: z.number() },
+            outputSchema: {
+                result: z.number(),
+            },
         },
         async ({ a, b }) => {
             console.error("executeTool called with name add_numbers");
+            const structuredContent = { result: a + b };
             return {
-                content: [{ type: "text", text: JSON.stringify({ result: a + b }) }],
+                content: [{ type: "text", text: JSON.stringify(structuredContent) }],
+                structuredContent,
             };
         }
     );
